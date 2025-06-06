@@ -1,0 +1,23 @@
+[tool.black]
+line-length = 88
+target-version = ['py311']
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+select = ["E", "F", "W", "C90", "I", "N", "B", "A", "C4", "T4", "SIM", "Q"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+
+[tool.pre-commit]
+repos = [
+    { repo = "https://github.com/psf/black", rev = "24.4.0", hooks = [{id = "black"}] },
+    { repo = "https://github.com/charliermarsh/ruff-pre-commit", rev = "v0.4.4", hooks = [{id = "ruff"}] },
+    { repo = "https://github.com/pre-commit/mirrors-isort", rev = "v5.13.2", hooks = [{id = "isort"}] },
+    { repo = "https://github.com/pre-commit/mirrors-mypy", rev = "v1.9.0", hooks = [{id = "mypy"}] }
+]

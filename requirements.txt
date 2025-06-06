@@ -1,0 +1,10 @@
+aiogram[fastapi]>=3.4.1
+aiosqlite>=0.20.0
+pydantic>=2.6.0
+python-dotenv>=1.0.1
+ruff>=0.4.4
+black>=24.4.0
+isort>=5.13.2
+mypy>=1.9.0
+pre-commit>=3.7.0
+pytest>=8.2.0
