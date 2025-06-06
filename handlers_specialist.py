@@ -1,11 +1,7 @@
 from telegram import Update
 from telegram.ext import CallbackContext, ConversationHandler, CallbackQueryHandler, CommandHandler, MessageHandler, Filters
-from utils import (
-    main_menu_specialist, confirm_cancel_keyboard, EMOJI_SUCCESS, EMOJI_DANGER, EMOJI_BACK
-)
-from db_manager import (
-    get_specialist_by_id, get_services_by_specialist, get_service_by_id
-)
+from utils import EMOJI_SUCCESS, EMOJI_DANGER, EMOJI_BACK
+from db_manager import get_specialist_by_id, get_services_by_specialist
 
 (
     STATE_SERVICES,

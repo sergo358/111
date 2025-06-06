@@ -1,7 +1,7 @@
 from telegram import Update
 from telegram.ext import CallbackContext, ConversationHandler, CallbackQueryHandler, CommandHandler
 from db_manager import get_user_bookings, cancel_booking_by_id
-from utils import EMOJI_SUCCESS, EMOJI_DANGER, EMOJI_BACK
+from utils.texts import BOOKING_SUCCESS, BOOKING_CANCELLED
 
 async def show_bookings(update: Update, context: CallbackContext):
     user_id = update.effective_user.id

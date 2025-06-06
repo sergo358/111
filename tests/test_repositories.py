@@ -52,3 +52,9 @@ async def test_reviews():
     assert ok
     reviews = await get_reviews_for_specialist(spec_id)
     assert any(r['text'] == text for r in reviews)
+
+@pytest.mark.asyncio
+async def test_get_user_bookings_edge_cases():
+    # Тесты для граничных случаев
+    bookings = await get_user_bookings(9999)
+    assert len(bookings) == 0  # Ожидаем, что записей не будет

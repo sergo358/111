@@ -20,3 +20,9 @@ async def test_review_service():
     assert ok
     reviews = await ReviewService.list_for_specialist(1)
     assert any(r['text'] == "Очень понравилось!" for r in reviews)
+
+@pytest.mark.asyncio
+async def test_booking_service_edge_cases():
+    # Тесты для граничных случаев
+    ok = await BookingService.book(9999, 9999, 9999, "2025-06-11", "15:00")
+    assert not ok  # Ожидаем, что запись не будет создана

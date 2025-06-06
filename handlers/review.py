@@ -17,12 +17,18 @@ class ReviewFSM(StatesGroup):
 
 @router.callback_query(F.data == "leave_review")
 async def choose_specialist(call: CallbackQuery, state: FSMContext):
+    if not call.from_user or not call.from_user.id:
+        await call.message.edit_text("Ошибка: пользователь не найден.")
+        return
     specialists = await SpecialistService.list_specialists()
     await call.message.edit_text("Кому хотите оставить отзыв?", reply_markup=specialists_kb(specialists))
     await state.set_state(ReviewFSM.CHOOSE_SPEC)
 
 @router.callback_query(ReviewFSM.CHOOSE_SPEC, F.data.startswith("spec_"))
 async def input_review_text(call: CallbackQuery, state: FSMContext):
+    if not call.from_user or not call.from_user.id:
+        await call.message.edit_text("Ошибка: пользователь не найден.")
+        return
     spec_id = int(call.data.split("_")[1])
     await state.update_data(spec_id=spec_id)
     await call.message.edit_text("Оставьте свой отзыв текстом:")

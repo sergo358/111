@@ -1,5 +1,6 @@
 import aiosqlite
 from core.settings import settings
+from core.logging import log_database_query
 
 # Specialists
 async def get_all_specialists():
@@ -34,11 +35,10 @@ async def get_services_for_specialist(spec_id):
 
 # Bookings
 async def create_booking(user_id, specialist_id, service_id, date, time):
+    query = "INSERT INTO bookings (user_id, specialist_id, service_id, date, time) VALUES (?, ?, ?, ?, ?)"
+    log_database_query(query)
     async with aiosqlite.connect(settings.db_file) as db:
-        await db.execute(
-            "INSERT INTO bookings (user_id, specialist_id, service_id, date, time) VALUES (?, ?, ?, ?, ?)",
-            (user_id, specialist_id, service_id, date, time),
-        )
+        await db.execute(query, (user_id, specialist_id, service_id, date, time))
         await db.commit()
         return True
 

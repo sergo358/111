@@ -1,9 +1,6 @@
 from telegram import Update
 from telegram.ext import CallbackContext, ConversationHandler, CallbackQueryHandler, CommandHandler, MessageHandler, Filters
-from utils import (
-    main_menu_client, specialists_list_keyboard, generate_calendar,
-    available_time_keyboard, confirm_cancel_keyboard, EMOJI_SUCCESS, EMOJI_DANGER, EMOJI_STAR, EMOJI_BACK, get_specialist_avatar
-)
+from utils.texts import WELCOME, SELECT_SPECIALIST, SELECT_SERVICE, SELECT_DATE, SELECT_TIME, CONFIRM_BOOKING, BOOKING_SUCCESS, BOOKING_CANCELLED
 from db_manager import get_all_specialists, get_available_dates, get_available_times, book_appointment
 from localization import (
     GREETING_CLIENT, CHOOSE_SPECIALIST, CHOOSE_DATE, CHOOSE_TIME, CONFIRM_BOOKING, BOOKING_DONE, CANCELLED, UNKNOWN_COMMAND

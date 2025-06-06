@@ -41,11 +41,17 @@ class BookingFSM(StatesGroup):
 
 @router.message(Command("start"))
 async def cmd_start(message: Message, state: FSMContext):
+    if not message.from_user or not message.from_user.id:
+        await message.answer("Ошибка: пользователь не найден.")
+        return
     await message.answer(WELCOME, reply_markup=main_menu())
     await state.clear()
 
 @router.callback_query(F.data == "book")
 async def choose_specialist(call: CallbackQuery, state: FSMContext):
+    if not call.from_user or not call.from_user.id:
+        await call.message.edit_text("Ошибка: пользователь не найден.")
+        return
     specialists = await SpecialistService.list_specialists()
     await call.message.edit_text(SELECT_SPECIALIST, reply_markup=specialists_kb(specialists))
     await state.set_state(BookingFSM.SELECT_SPECIALIST)

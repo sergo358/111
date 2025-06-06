@@ -18,8 +18,16 @@ class SpecialistFSM(StatesGroup):
     ADD_EMOJI = State()
     CONFIRM = State()
 
+async def check_user_existence(call: CallbackQuery) -> bool:
+    if not call.from_user or not call.from_user.id:
+        await call.message.edit_text("Ошибка: пользователь не найден.")
+        return False
+    return True
+
 @router.callback_query(F.data == "specialist_menu")
 async def specialist_menu(call: CallbackQuery, state: FSMContext):
+    if not await check_user_existence(call):
+        return
     services = await get_services_for_specialist(call.from_user.id)
     text = "Ваши услуги:\n\n" if services else "У вас нет услуг. Добавим первую?"
     for s in services:

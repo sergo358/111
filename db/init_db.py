@@ -74,3 +74,16 @@ async def init_db():
                 ]
             )
             await db.commit()
+
+async def optimize_db():
+    async with aiosqlite.connect(settings.db_file) as db:
+        await db.execute("CREATE INDEX IF NOT EXISTS idx_specialists_name ON specialists(name);")
+        await db.execute("CREATE INDEX IF NOT EXISTS idx_services_name ON services(name);")
+        await db.execute("CREATE INDEX IF NOT EXISTS idx_bookings_date_time ON bookings(date, time);")
+        await db.commit()
+
+async def seed_test_data():
+    async with aiosqlite.connect(settings.db_file) as db:
+        await db.execute("INSERT INTO bookings (user_id, specialist_id, service_id, date, time, status) VALUES (1, 1, 1, '2025-06-10', '10:00', 'booked');")
+        await db.execute("INSERT INTO reviews (user_id, specialist_id, text, stars) VALUES (1, 1, 'Отлично!', 5);")
+        await db.commit()

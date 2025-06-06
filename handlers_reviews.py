@@ -1,6 +1,6 @@
 from telegram import Update
 from telegram.ext import CallbackContext, ConversationHandler, CallbackQueryHandler, CommandHandler, MessageHandler, Filters
-from utils import EMOJI_STAR, EMOJI_BACK
+from utils.texts import REVIEW_THANKS
 from db_manager import get_all_specialists
 
 (
